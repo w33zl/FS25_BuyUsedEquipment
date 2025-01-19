@@ -1,0 +1,23 @@
+<?xml version="1.0" standalone="no"?>
+<modDesc descVersion="91" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/NMC-TBone/xml-schema/main/modDesc.xsd">
+    <author>w33zl</author>
+    <version>0.5.0.0-dev</version>
+    <title>
+        <en>[DEV] Buy Used Equipment</en>
+    </title>
+    <description>
+        <en><![CDATA[ DO NOT FORGET A DESCRIPTION - CHANGE THIS! ]]></en>
+    </description>
+    <iconFilename>icon_BuyUsedEquipment.dds</iconFilename>
+    <!-- Change the line below to "false" if multiplayer is NOT supported -->
+    <multiplayer supported="true" />
+    <!-- Uncommit the line below to activate language/translation files, also do not forget to rename "language_LANGCODE.xml" -->
+    <!-- <l10n filenamePrefix="language" /> -->
+    <extraSourceFiles>
+        <sourceFile filename="lib/LogHelper.lua" />
+        <!-- Must be place before the ModHelper -->
+        <sourceFile filename="lib/ModHelper.lua" />
+        <!-- Must be place before the actual mod script -->
+        <sourceFile filename="BuyUsedEquipment.lua" />
+    </extraSourceFiles>
+</modDesc>
