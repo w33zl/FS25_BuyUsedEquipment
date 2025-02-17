@@ -10,7 +10,7 @@
     </description>
     <iconFilename>icon_BuyUsedEquipment.dds</iconFilename>
     <multiplayer supported="true"/>
-    <!-- <l10n filenamePrefix="language" /> -->
+    <l10n filenamePrefix="language" />
     <extraSourceFiles>
         <sourceFile filename="scripts/modLib/LogHelper.lua"/>
         <sourceFile filename="scripts/modLib/ModHelper.lua"/>
