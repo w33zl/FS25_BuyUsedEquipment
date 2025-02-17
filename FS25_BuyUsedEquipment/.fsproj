@@ -31,8 +31,11 @@
     "**/modLib/PlaceableExtension.lua",
     "**/modLib/StringWriter.lua",
     "**/*.pdn",
+    "**/*.png",
     "**/*.bak",
     "**/*.md",
     "**/language_LANGCODE.xml"
-  ]
+  ],
+  "autoBumpModDescVersion": true,
+  "name": "FS25_BuyUsedEquipment"
 }
