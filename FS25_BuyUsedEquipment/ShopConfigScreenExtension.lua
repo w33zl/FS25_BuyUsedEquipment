@@ -30,9 +30,13 @@ ShopConfigScreen.updateButtons = Utils.overwrittenFunction(ShopConfigScreen.upda
     
 end)
 
-ShopConfigScreen.setStoreItem = Utils.overwrittenFunction(ShopConfigScreen.setStoreItem, function(self, superFunc, ...)
+ShopConfigScreen.setStoreItem = Utils.overwrittenFunction(ShopConfigScreen.setStoreItem, function(self, superFunc, storeItem, ...)
     Log:debug("ShopConfigScreen.setStoreItem NEW")
-    superFunc(self, ...)
+    superFunc(self, storeItem, ...)
+
+    -- local args = {...}
+
+    -- visualizeTable("args", args, 2)
 
     local buyButton = self.buyButton
     local buddyButton = self.buddyButton
@@ -42,7 +46,7 @@ ShopConfigScreen.setStoreItem = Utils.overwrittenFunction(ShopConfigScreen.setSt
         buddyButton = buyButton:clone(parent)
         buddyButton.name = "buddyButton"
         buddyButton.text = "Buddy"
-        buddyButton.inputActionName = "MENU_EXTRA_2" -- TODO: custom U action?
+        buddyButton.inputActionName = "MENU_EXTRA_2"
         self.buddyButton = buddyButton
     end
 
@@ -50,10 +54,12 @@ ShopConfigScreen.setStoreItem = Utils.overwrittenFunction(ShopConfigScreen.setSt
         buddyButton:setDisabled(false)
 
         buddyButton.onClick = "onClickBuddy"
-        buddyButton.text = "Buddy3"
+        buddyButton.text = "Buddy4"
 
-        self.onClickBuddy = self.onClickBuddy or function()
-            Log:info("Go!!")
+        self.onClickBuddy = function()
+            --TODO: add sale item
+            BuyUsedEquipment:requestUsedItem(storeItem)
+            Log:info("Store item queued for search")
         end
 
         buddyButton.onClickCallback = self.onClickBuddy
