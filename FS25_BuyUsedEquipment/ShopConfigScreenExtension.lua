@@ -39,34 +39,43 @@ ShopConfigScreen.setStoreItem = Utils.overwrittenFunction(ShopConfigScreen.setSt
     -- visualizeTable("args", args, 2)
 
     local buyButton = self.buyButton
-    local buddyButton = self.buddyButton
+    local buyUsedButton = self.buyUsedButton
 
-    if not buddyButton and buyButton then
+    if not buyUsedButton and buyButton then
         local parent = buyButton.parent
-        buddyButton = buyButton:clone(parent)
-        buddyButton.name = "buddyButton"
-        buddyButton.text = "Buddy"
-        buddyButton.inputActionName = "MENU_EXTRA_2"
-        self.buddyButton = buddyButton
+        buyUsedButton = buyButton:clone(parent)
+        buyUsedButton.name = "buyUsedButton"
+        buyUsedButton.text = "Buddy"
+        buyUsedButton.inputActionName = "MENU_EXTRA_2"
+        self.buyUsedButton = buyUsedButton
     end
 
-    if buddyButton ~= nil then
-        buddyButton:setDisabled(false)
+    if buyUsedButton ~= nil then
+        buyUsedButton:setDisabled(false)
 
-        buddyButton.onClick = "onClickBuddy"
-        buddyButton.text = "Buddy4"
+        buyUsedButton.onClick = "onClickBuyUsed"
+        buyUsedButton.text = g_i18n:getText("button_buyUsed")
 
-        self.onClickBuddy = function()
+        self.onClickBuyUsed = function()
             --TODO: add sale item
             BuyUsedEquipment:requestUsedItem(storeItem)
             Log:info("Store item queued for search")
         end
 
-        buddyButton.onClickCallback = self.onClickBuddy
+        buyUsedButton.onClickCallback = self.onClickBuyUsed
     end
 
-    if buyButton ~= nil then
-        buyButton:setDisabled(true)
+
+
+    if buyUsedButton ~= nil then
+        local function qualifyForUsed()
+            local isQualified = storeItem.species == StoreSpecies.VEHICLE
+            isQualified = isQualified and storeItem.saleItem == nil
+            --isBundleItem
+            --storeItem.price < 1000
+            return isQualified
+        end
+        buyUsedButton:setDisabled(not qualifyForUsed())
     end
     -- :clone()
     -- visualizeTable("ShopConfigScreen", self, 1)
