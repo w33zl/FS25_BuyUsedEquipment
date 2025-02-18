@@ -46,6 +46,7 @@ function NotifySearchCompletedEvent.writeStream(self, streamId, connection)
 	end
 end
 
+local NOTIFICATION_DURATION = 8000
 function NotifySearchCompletedEvent.execute(farmId, xmlFilename, success)
     Log:debug("NotifySearchCompletedEvent.execute")
     Log:var("farmId", farmId)
@@ -53,14 +54,15 @@ function NotifySearchCompletedEvent.execute(farmId, xmlFilename, success)
 	Log:var("success", success)
 	
 	--TODO: only show for the actual farm
+
 	
 	if success then
 		g_gui.guiSoundPlayer:playSample(GuiSoundPlayer.SOUND_SAMPLES.SUCCESS)
-    	g_currentMission:addGameNotification(g_i18n:getText("search_completed_success_title"), g_i18n:getText("search_completed_success_info"), "", nil, 5000)
+    	g_currentMission:addGameNotification(g_i18n:getText("search_completed_success_title"), "", g_i18n:getText("search_completed_success_info"), nil, NOTIFICATION_DURATION)
 		
 	else
 		g_gui.guiSoundPlayer:playSample(GuiSoundPlayer.SOUND_SAMPLES.ERROR)
-		g_currentMission:addGameNotification(g_i18n:getText("search_completed_failed_title"), g_i18n:getText("search_completed_failed_info"), "", nil, 5000)
+		g_currentMission:addGameNotification(g_i18n:getText("search_completed_failed_title"), "", g_i18n:getText("search_completed_failed_info"), nil, NOTIFICATION_DURATION)
 		
 	end
 	-- BuyUsedEquipment:storeRequestedItem(farmId, xmlFilename, searchLevel)
