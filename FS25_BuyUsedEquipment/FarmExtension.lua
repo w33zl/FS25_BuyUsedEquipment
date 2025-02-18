@@ -22,7 +22,7 @@ end
 Farm.new = Utils.overwrittenFunction(Farm.new, FarmExtension.new)
 
 function FarmExtension:onHourChanged()
-    Log:debug("FarmExtension:onHourChanged")
+    -- Log:debug("FarmExtension:onHourChanged")
 
     if not self.isServer then
         Log:debug("not server")
@@ -38,7 +38,7 @@ function FarmExtension:onHourChanged()
     local buyUsedVehicles = self.buyUsedVehicles
 
     if buyUsedVehicles == nil or #buyUsedVehicles == 0 then
-        Log:debug("no items to check for farm #%d", self.farmId)
+        -- Log:debug("no items to check for farm #%d", self.farmId)
         return
     end
 
@@ -46,22 +46,25 @@ function FarmExtension:onHourChanged()
     local totalItems = #buyUsedVehicles
 
     for i = totalItems, 1, -1 do
-        print("checking #" .. i)
+        -- print("checking #" .. i)
         local queueItem = buyUsedVehicles[i]
         queueItem.ttl = queueItem.ttl - 1
         queueItem.tts = queueItem.tts - 1
         local ttl = queueItem.ttl
         local tts = queueItem.tts
 
-        if tts < 1 then
-            BuyUsedEquipment:finalizeSearch(self.farmId, queueItem.filename)
-            buyUsedVehicles[i] = nil
-            itemsFlushed = itemsFlushed + 1
-        elseif ttl < 1 then
-            buyUsedVehicles[i] = nil
-            itemsFlushed = itemsFlushed + 1
-        else
-            -- items[i] = value
+        -- Log:debug("ttl: %d, tts: %d", ttl, tts)
+        if g_currentMission:getAllowsGuiDisplay() then
+            if tts < 1 then
+                BuyUsedEquipment:finalizeSearch(self.farmId, queueItem.filename)
+                buyUsedVehicles[i] = nil
+                itemsFlushed = itemsFlushed + 1
+            elseif ttl < 1 then
+                buyUsedVehicles[i] = nil
+                itemsFlushed = itemsFlushed + 1
+            else
+                -- items[i] = value
+            end
         end
         
     end
@@ -113,10 +116,17 @@ end
 
 Farm.loadFromXMLFile = Utils.overwrittenFunction(Farm.loadFromXMLFile, FarmExtension.loadFromXMLFile)
 
-function FarmExtension.addUsedVehicleSearch(farm, xmlFilename)
+function FarmExtension.addUsedVehicleSearch(farm, xmlFilename, searchLevel)
     Log:debug("FarmExtension:addUsedVehicleSearch")
 
+
+
     farm.buyUsedVehicles = farm.buyUsedVehicles or {}
+    local searchAssignment = BuyUsedEquipment:createSearchAssignment(xmlFilename, searchLevel)
+
+    -- table.insert(farm.buyUsedVehicles, searchAssignment)
+    --TODO: fix
+
     table.insert(farm.buyUsedVehicles, {
         ttl = 4,
         tts = 3,
