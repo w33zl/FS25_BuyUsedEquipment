@@ -30,6 +30,44 @@ ShopConfigScreen.updateButtons = Utils.overwrittenFunction(ShopConfigScreen.upda
     
 end)
 
+
+-- Local values: _, _, , enoughMoney, enoughSlots, text, callback, target
+function ShopConfigScreen:onClickBuyUsed()
+    -- OptionDialog.show(function(results) 
+    --     Log:debug("OptionDialog.show")
+    --     Log:var("results", results)
+
+    --     if true then
+    --         BuyUsedEquipment:requestUsedItem(storeItem)
+    --     end
+    -- end, "Texten", "En title", { "Nej", "Ja", "Kanske"})
+	-- local _, _, hasChanges = self:getConfigurationCostsAndChanges(self.storeItem, self.vehicle, self.saleItem)
+	-- if hasChanges then
+	-- 	local v619_ = self.totalPrice <= 0 and true or g_currentMission:getMoney() >= self.totalPrice
+	-- 	local v620_ = g_currentMission.slotSystem:hasEnoughSlots(self.storeItem)
+	-- 	g_inputBinding:setShowMouseCursor(true)
+	-- 	if v619_ then
+	-- 		if v620_ then
+	-- 			self:playSample(GuiSoundPlayer.SOUND_SAMPLES.CLICK)
+	-- 			local v621_ = string.format(g_i18n:getText(ShopConfigScreen.L10N_SYMBOL.CONFIRM_BUY), g_i18n:formatMoney(self.totalPrice, 0, true, true))
+	-- 			local v622_ = self.onYesNoBuy
+	-- 			YesNoDialog.show(v622_, self, v621_, nil, nil, nil, nil, nil, nil, nil, true)
+	-- 		else
+	-- 			self:playSample(GuiSoundPlayer.SOUND_SAMPLES.ERROR)
+	-- 			InfoDialog.show(g_i18n:getText(ShopConfigScreen.L10N_SYMBOL.TOO_FEW_SLOTS), nil, nil, DialogElement.TYPE_WARNING, nil, nil, nil, true)
+	-- 		end
+	-- 	else
+	-- 		self:playSample(GuiSoundPlayer.SOUND_SAMPLES.ERROR)
+	-- 		InfoDialog.show(g_i18n:getText(ShopConfigScreen.L10N_SYMBOL.NOT_ENOUGH_MONEY_BUY), nil, nil, DialogElement.TYPE_WARNING, nil, nil, nil, true)
+	-- 		return
+	-- 	end
+	-- else
+	-- 	return
+	-- end
+end
+
+
+
 ShopConfigScreen.setStoreItem = Utils.overwrittenFunction(ShopConfigScreen.setStoreItem, function(self, superFunc, storeItem, ...)
     Log:debug("ShopConfigScreen.setStoreItem NEW")
     superFunc(self, storeItem, ...)
@@ -56,10 +94,31 @@ ShopConfigScreen.setStoreItem = Utils.overwrittenFunction(ShopConfigScreen.setSt
         buyUsedButton.onClick = "onClickBuyUsed"
         buyUsedButton.text = g_i18n:getText("button_buyUsed")
 
+        local function getFormattedOption(index)
+            local name = BuyUsedEquipment.SEARCH_LEVELS[index].name
+            return string.format(name, BuyUsedEquipment:calculateFee(storeItem.price, index))
+        end
+
+        local options = {}
+        for i, _ in ipairs(BuyUsedEquipment.SEARCH_LEVELS) do
+            table.insert(options, getFormattedOption(i))
+        end
+
         self.onClickBuyUsed = function()
-            --TODO: add sale item
-            BuyUsedEquipment:requestUsedItem(storeItem)
-            Log:info("Store item queued for search")
+
+            OptionDialog.show(function(results) 
+                Log:debug("OptionDialog.show")
+                Log:var("results", results)
+        
+                if results > 0 then
+                    --HACK: this is wrong! fix!
+                    -- BuyUsedEquipment:createSearchAssignment(storeItem, results)
+                    BuyUsedEquipment:requestUsedItem(storeItem, results)
+                end
+            end, g_i18n:getText("store_searchDialog_info"):gsub("\\n", "\n"), g_i18n:getText("store_searchDialog_title"), options)
+            -- --TODO: add sale item
+            -- BuyUsedEquipment:requestUsedItem(storeItem)
+            -- Log:info("Store item queued for search")
         end
 
         buyUsedButton.onClickCallback = self.onClickBuyUsed

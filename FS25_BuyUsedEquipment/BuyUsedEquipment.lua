@@ -83,6 +83,27 @@ local GENERATIONS = {
     },
 }
 
+BuyUsedEquipment.SEARCH_LEVELS = {
+    {
+        name = g_i18n:getText("searchLevel_normal"),
+        duration = 1,
+        chance = 0.65,
+        baseFee = 1000,
+    },
+    {
+        name = g_i18n:getText("searchLevel_extended"),
+        duration = 3,
+        chance = 0.80,
+        baseFee = 3000,
+    },
+    {
+        name = g_i18n:getText("searchLevel_continuous"),
+        duration = 12,
+        chance = 0.95,
+        baseFee = 15000,
+    },
+}
+
 BuyUsedEquipment.MAX_GENERATION = math.min(BuyUsedEquipment.MAX_GENERATION, #GENERATIONS)
 
 
@@ -99,16 +120,50 @@ end
 function BuyUsedEquipment:startMission()
 end
 
-function BuyUsedEquipment:requestUsedItem(storeItem)
+function BuyUsedEquipment:requestUsedItem(storeItem, searchLevel)
     local xmlFilename = storeItem.xmlFilename
     Log:debug("requestUsedItem: '%s' '%s'", storeItem.name, xmlFilename)
-    RequestItemEvent.requestUsedItem(g_localPlayer.farmId, xmlFilename)
+    RequestItemEvent.requestUsedItem(g_localPlayer.farmId, xmlFilename,searchLevel)
 end
 
-function BuyUsedEquipment:storeRequestedItem(farmId, xmlFilename)
+function BuyUsedEquipment:calculateFee(price, searchLevel)
+    local searchType = self.SEARCH_LEVELS[searchLevel or 1]
+    local threshold = 2500 -- Low price threshold
+    local dynamicFee = 800
+    local factor = math.log10(price/threshold)
+    local baseFee = searchType.baseFee
+    local fee = baseFee + (math.max(factor, 0) * dynamicFee)
+    
+    return fee
+end
+
+
+function BuyUsedEquipment:createSearchAssignment(xmlFilename, searchLevel)
+    local searchType = self.SEARCH_LEVELS[searchLevel or 1]
+    local fee = self:calculateFee(g_storeManager:getItemByXMLFilename(xmlFilename).price, searchLevel)
+    local isSuccess = math.random() < searchType.chance
+    local maxSearchTime = g_currentMission.environment.daysPerPeriod * searchType.duration * 24
+    local searchDuration = math.random(1, maxSearchTime)
+    local successTime = isSuccess and math.random(1, searchDuration) or searchDuration + 1
+    Log:var("maxSearchTime", maxSearchTime)
+    Log:var("searchDuration", searchDuration)
+    Log:var("successTime", successTime)
+    Log:var("isSuccess", isSuccess)
+    Log:var("searchLevel", searchType)
+    Log:var("fee", fee)
+    return {
+        ttl = searchDuration,
+        tts = successTime,
+        filename = xmlFilename,
+        level = searchType,
+    }
+end
+
+function BuyUsedEquipment:storeRequestedItem(farmId, xmlFilename, searchLevel)
     Log:debug("storeRequestedItem")
     Log:var("farmId", farmId)
     Log:var("xmlFilename", xmlFilename)
+    Log:var("searchLevel", searchLevel)
     local storeItem = g_storeManager:getItemByXMLFilename(xmlFilename)
     local farm = g_farmManager:getFarmById(farmId)
 
@@ -120,7 +175,7 @@ function BuyUsedEquipment:storeRequestedItem(farmId, xmlFilename)
     --     return
     end
 
-    FarmExtension.addUsedVehicleSearch(farm, xmlFilename) --farm:addUsedVehicleSearch(xmlFilename)
+    FarmExtension.addUsedVehicleSearch(farm, xmlFilename, searchLevel) --farm:addUsedVehicleSearch(xmlFilename)
 end
 
 function BuyUsedEquipment:finalizeSearch(farmId, xmlFilename)
