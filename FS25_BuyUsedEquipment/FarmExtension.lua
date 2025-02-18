@@ -57,11 +57,13 @@ function FarmExtension:onHourChanged()
         if g_currentMission:getAllowsGuiDisplay() then
             if tts < 1 then
                 BuyUsedEquipment:finalizeSearch(self.farmId, queueItem.filename, true)
-                buyUsedVehicles[i] = nil
+                -- buyUsedVehicles[i] = nil
+                table.remove(buyUsedVehicles, i)
                 itemsFlushed = itemsFlushed + 1
             elseif ttl < 1 then
                 BuyUsedEquipment:finalizeSearch(self.farmId, queueItem.filename, false)
-                buyUsedVehicles[i] = nil
+                -- buyUsedVehicles[i] = nil
+                table.remove(buyUsedVehicles, i)
                 itemsFlushed = itemsFlushed + 1
             else
                 -- items[i] = value
