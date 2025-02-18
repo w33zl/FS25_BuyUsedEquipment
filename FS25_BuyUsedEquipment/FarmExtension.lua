@@ -76,16 +76,14 @@ end
 function FarmExtension:saveToXMLFile(xmlFile, key)
     Log:debug("FarmExtension:saveToXMLFile")
 
-    -- if self.financing == nil then self.financing = {} end
+    if self.buyUsedVehicles == nil then self.buyUsedVehicles = {} end
 
-    -- xmlFile:setSortedTable(key .. ".financing.finance", self.financing, function (index, financing)
-    --     xmlFile:setString(index .. "#date", financing.date)
-    --     xmlFile:setFloat(index .. "#amount", financing.amount)
-    --     xmlFile:setFloat(index .. "#amountPaid", financing.amountPaid)
-    --     xmlFile:setInt(index .. "#length", financing.length)
-    --     xmlFile:setString(index .. "#vehicle", financing.vehicle)
-    --     xmlFile:setBool(index .. "#paid", financing.paid)
-    -- end)
+    xmlFile:setSortedTable(key .. ".buyUsedEquipment.assignment", self.buyUsedVehicles, function (index, assignment)
+        xmlFile:setInt(index .. "#ttl", assignment.ttl)
+        xmlFile:setInt(index .. "#tts", assignment.tts)
+        xmlFile:setString(index .. "#filename", assignment.filename)
+        xmlFile:setInt(index .. "#level", assignment.level)
+    end)
 
 end
 
@@ -96,20 +94,21 @@ function FarmExtension:loadFromXMLFile(superFunc, xmlFile, key)
 
     local returnValue = superFunc(self, xmlFile, key)
 
-    -- self.financing = {}
+    self.buyUsedVehicles = {}
 
-    -- xmlFile:iterate(key .. ".financing.finance", function (_, financingKey)
-    --     local financingTable = {
-    --         date = xmlFile:getString(financingKey .. "#date", "1-1"),
-    --         amount = xmlFile:getFloat(financingKey .. "#amount", 0),
-    --         amountPaid = xmlFile:getFloat(financingKey .. "#amountPaid", 0),
-    --         length = xmlFile:getInt(financingKey .. "#length", 6),
-    --         vehicle = xmlFile:getString(financingKey .. "#vehicle", "0"),
-    --         paid = xmlFile:getBool(financingKey .. "#paid", true)
-    --     }
+    xmlFile:iterate(key .. ".buyUsedEquipment.assignment", function (_, assignmentKey)
+        local assignment = {
+            ttl = xmlFile:getInt(assignmentKey .. "#ttl", 1),
+            tts = xmlFile:getInt(assignmentKey .. "#tts", 2),
+            filename = xmlFile:getString(assignmentKey .. "#filename", ""),
+            level = xmlFile:getInt(assignmentKey .. "#level", 1),
+        }
 
-    --     table.insert(self.financing, financingTable)
-    -- end)
+        if assignment.filename ~= "" then
+            table.insert(self.buyUsedVehicles, assignment)
+        end
+        
+    end)
 
     return returnValue
 
