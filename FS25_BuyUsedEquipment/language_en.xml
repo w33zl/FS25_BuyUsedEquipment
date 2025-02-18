@@ -5,9 +5,15 @@
         <text name="button_buyUsed" text="Buy Used" />
         <text name="store_searchDialog_title" text="Search for Used Equipment" />
         <text name="store_searchDialog_info" text="Create a search assignment for our broker. You can choose one of three options:\n 1. Normal search (&lt;1 month, ~65% chance)\n 2. Extended search (&lt;3 months, ~80% chance)\n 3. Continous search (a year, ~98% chance)\n\nA longer assignment increases the search area and the chance of success, but at a higher cost.\n" />
-        <text name="searchLevel_normal" text="Normal search [fee %d%s]" />
-        <text name="searchLevel_extended" text="Extended search [fee %d%s]" />
-        <text name="searchLevel_continuous" text="Continuous search [fee %d%s]" />
-
+        <text name="searchLevel_normal" text="Normal search [fee %s]" />
+        <text name="searchLevel_extended" text="Extended search [fee %s]" />
+        <text name="searchLevel_continuous" text="Continuous search [fee %s]" />
+        <text name="search_completed_success_title" text="Search Successful" />
+        <text name="search_completed_success_info" text="Congratulations! The broker found matching equiopment, check the sales tab in the store." />
+        <text name="search_completed_failed_title" text="Search Failed" />
+        <text name="search_completed_failed_info" text="Unfortunately, the broker could not find any matching equiopment within this time frame and search area." />
+        <text name="search_started_title" text="Search Started" />
+        <text name="search_started_info" text="Keep an eye out for a notification from the broker..." />
+        <text name="search_started_confirmation" text="The used equipment broker has got your assignment. A upfront fee of %s have beed deducted from your account. Keep an eye out for a notification from the broker when the search assignment has ended." />
     </texts>
 </l10n>

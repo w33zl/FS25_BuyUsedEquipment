@@ -1,7 +1,7 @@
 RequestItemEvent = {}
 local RequestItemEvent_mt = Class(RequestItemEvent, Event)
 
-InitEventClass(RequestItemEvent, "SpawnObjectEvent")
+InitEventClass(RequestItemEvent, "RequestItemEvent")
 
 function RequestItemEvent.emptyNew()
 	return Event.new(RequestItemEvent_mt)

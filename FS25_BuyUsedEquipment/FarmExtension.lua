@@ -56,10 +56,11 @@ function FarmExtension:onHourChanged()
         -- Log:debug("ttl: %d, tts: %d", ttl, tts)
         if g_currentMission:getAllowsGuiDisplay() then
             if tts < 1 then
-                BuyUsedEquipment:finalizeSearch(self.farmId, queueItem.filename)
+                BuyUsedEquipment:finalizeSearch(self.farmId, queueItem.filename, true)
                 buyUsedVehicles[i] = nil
                 itemsFlushed = itemsFlushed + 1
             elseif ttl < 1 then
+                BuyUsedEquipment:finalizeSearch(self.farmId, queueItem.filename, false)
                 buyUsedVehicles[i] = nil
                 itemsFlushed = itemsFlushed + 1
             else
@@ -124,14 +125,14 @@ function FarmExtension.addUsedVehicleSearch(farm, xmlFilename, searchLevel)
     farm.buyUsedVehicles = farm.buyUsedVehicles or {}
     local searchAssignment = BuyUsedEquipment:createSearchAssignment(xmlFilename, searchLevel)
 
-    -- table.insert(farm.buyUsedVehicles, searchAssignment)
+    table.insert(farm.buyUsedVehicles, searchAssignment)
     --TODO: fix
 
-    table.insert(farm.buyUsedVehicles, {
-        ttl = 4,
-        tts = 3,
-        filename = xmlFilename,
-    })
+    -- table.insert(farm.buyUsedVehicles, {
+    --     ttl = 4,
+    --     tts = 3,
+    --     filename = xmlFilename,
+    -- })
 
     Log:table("self.buyUsedVehicles", farm.buyUsedVehicles, 2)
 

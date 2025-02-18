@@ -14,6 +14,8 @@ BuyUsedEquipment = Mod:init()
 BuyUsedEquipment:source("ShopConfigScreenExtension.lua")
 BuyUsedEquipment:source("FarmExtension.lua")
 BuyUsedEquipment:source("RequestItemEvent.lua")
+BuyUsedEquipment:source("NotifySearchCompletedEvent.lua")
+
 
 BuyUsedEquipment.MIN_SALE_DURATION = 24
 BuyUsedEquipment.MAX_SALE_DURATION = BuyUsedEquipment.MIN_SALE_DURATION * 3
@@ -176,9 +178,13 @@ function BuyUsedEquipment:storeRequestedItem(farmId, xmlFilename, searchLevel)
     end
 
     FarmExtension.addUsedVehicleSearch(farm, xmlFilename, searchLevel) --farm:addUsedVehicleSearch(xmlFilename)
+
+    local fee = self:calculateFee(storeItem.price, searchLevel)
+    g_currentMission:addMoney(-fee, farmId, MoneyType.SHOP_VEHICLE_BUY, true, true)
+    Log:var("Fee deducted", fee)
 end
 
-function BuyUsedEquipment:finalizeSearch(farmId, xmlFilename)
+function BuyUsedEquipment:finalizeSearch(farmId, xmlFilename, success)
     Log:debug("finalizeSearch")
 
     if g_server == nil then
@@ -188,12 +194,17 @@ function BuyUsedEquipment:finalizeSearch(farmId, xmlFilename)
 
     Log:var("farmId", farmId)
     Log:var("xmlFilename", xmlFilename)
-    local storeItem = g_storeManager:getItemByXMLFilename(xmlFilename)
-    local farm = g_farmManager:getFarmById(farmId)
 
-    self:generateSaleItem(storeItem)
+    if success then
+        local storeItem = g_storeManager:getItemByXMLFilename(xmlFilename)
+        local farm = g_farmManager:getFarmById(farmId)
 
-    --TODO: send notification to client
+        self:generateSaleItem(storeItem)
+        Log:debug("Sale item generated")
+    end
+
+    NotifySearchCompletedEvent.broadcast(farmId, xmlFilename, success)
+    Log:debug("Clients notified")
 end
 
 
