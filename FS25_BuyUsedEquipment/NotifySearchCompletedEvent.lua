@@ -1,7 +1,7 @@
 NotifySearchCompletedEvent = {}
 local NotifySearchCompletedEvent_mt = Class(NotifySearchCompletedEvent, Event)
 
-InitEventClass(NotifySearchCompletedEvent, "NotifySuccessEvent")
+InitStaticEventClass(NotifySearchCompletedEvent, "NotifySearchCompletedEvent")
 
 function NotifySearchCompletedEvent.emptyNew()
 	return Event.new(NotifySearchCompletedEvent_mt)
@@ -46,6 +46,8 @@ function NotifySearchCompletedEvent.writeStream(self, streamId, connection)
 	end
 end
 
+
+
 local NOTIFICATION_DURATION = 8000
 function NotifySearchCompletedEvent.execute(farmId, xmlFilename, success)
     Log:debug("NotifySearchCompletedEvent.execute")
@@ -75,9 +77,9 @@ function NotifySearchCompletedEvent.broadcast(farmId, xmlFilename, success)
 	Log:var("success", success)
 	--self, event, sendLocal, ignoreConnection, ghostObject, force, connectionList, allowQueuing
 	-- g_server:broadcastEvent(NotifySuccessEvent.new(farmId, xmlFilename), true, false, {}, false, nil, true)
-	Server.broadcastEvent(g_server, NotifySearchCompletedEvent.new(farmId, xmlFilename, success), true, true, {}, false, nil, true)
+	Server.broadcastEvent(g_server, NotifySearchCompletedEvent.new(farmId, xmlFilename, success), true, false, {}, true, nil, true)
 
-	-- FSBaseMission.broadcastEventToFarm(self, event, farmId, sendLocal, ignoreConnection, ghostObject, force)
+	g_currentMission:broadcastEventToFarm(NotifySearchCompletedEvent.new(farmId, xmlFilename, success), farmId, true, false, {}, true)
 
 	if g_server ~= nil then
         Log:debug("Direct execute on server")
