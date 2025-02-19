@@ -203,7 +203,22 @@ function BuyUsedEquipment:finalizeSearch(farmId, xmlFilename, success)
         Log:debug("Sale item generated")
     end
 
-    NotifySearchCompletedEvent.broadcast(farmId, xmlFilename, success)
+    -- Server.broadcastEvent(g_server, NotifySearchCompletedEvent.new(farmId, xmlFilename, success), true, false, {}, true, nil, true)
+
+    Log:var("NotifySearchCompletedEvent", NotifySearchCompletedEvent)
+
+    local evt = NotifySearchCompletedEvent.new(farmId, xmlFilename, success)
+
+    -- Log:var("evt", evt)
+
+    g_server:broadcastEvent(evt, true) -- event, sendLocal, ignoreConnection, ghostObject, force, connectionList, allowQueuing
+
+    Log:var("g_client", g_client)
+
+	-- g_currentMission:broadcastEventToFarm(evt, farmId, true, true, {}, true)
+
+
+    -- NotifySearchCompletedEvent.broadcast(farmId, xmlFilename, success)
     Log:debug("Clients notified")
 end
 
