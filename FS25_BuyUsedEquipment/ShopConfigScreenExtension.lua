@@ -1,10 +1,10 @@
 
-ShopConfigScreen.onOpen = Utils.overwrittenFunction(ShopConfigScreen.onOpen, function(self, superFunc, ...)
-    Log:debug("ShopConfigScreen.onOpen")
-    superFunc(self, ...)
-    self:getDescendantByName("button"):setVisible(false)
-    -- self:getDescendantByName("yesNoOption"):setVisible(false)
-end)
+-- ShopConfigScreen.onOpen = Utils.overwrittenFunction(ShopConfigScreen.onOpen, function(self, superFunc, ...)
+--     Log:debug("ShopConfigScreen.onOpen")
+--     superFunc(self, ...)
+--     self:getDescendantByName("button"):setVisible(false)
+--     -- self:getDescendantByName("yesNoOption"):setVisible(false)
+-- end)
 
 ShopConfigScreen.updateButtons = Utils.overwrittenFunction(ShopConfigScreen.updateButtons, function(self, superFunc, ...)
     Log:debug("ShopConfigScreen.updateButtons")
