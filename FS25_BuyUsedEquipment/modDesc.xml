@@ -1,9 +1,11 @@
 <?xml version="1.0" standalone="no"?>
 <modDesc descVersion="95" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/NMC-TBone/xml-schema/main/modDesc.xsd">
     <author>w33zl</author>
-    <version>0.5.0.0-dev</version>
+    <version>0.21.0.0-dev</version>
     <title>
         <en>[DEV] Buy Used Equipment</en>
+        <de>[DEV] Gebrauchte Ausrüstung Kaufen</de>
+        <fr>[DEV] Acheter Du Matériel D'occasion</fr>
     </title>
     <description>
 <en><![CDATA[
@@ -19,10 +21,36 @@ When paying a higher fee the broker searches for an extended period of time, as 
 
 As always when buying used equipment, before putting it to good use it is advised to give it a thorough greaseup and overall look at the mechanics to make sure everything is in good working order, the equipment has been used after all.
 ]]></en>
-    </description>
+<de><![CDATA[
+Tolle Neuigkeiten! Der örtliche Händler hat angekündigt, dass er einen Makler für gebrauchte Maschinen zur Verfügung stellen wird, der in Ihrem Namen günstige Angebote für gebrauchte Maschinen findet. Der Makler wird auf der Grundlage Ihrer Anfrage die nahe gelegenen Gebiete nach günstigen Angeboten durchforsten und hoffentlich die Traummaschine finden, auf die Sie schon lange ein Auge geworfen haben.
+
+Die meisten Maschinen können als gebraucht gekauft werden. In den meisten Fällen haben sie ein paar Dellen und blaue Flecken, und sie haben mit Sicherheit eine ganze Reihe von Betriebsstunden hinter sich (falls es überhaupt eine Haube gibt), aber der Makler sorgt dafür, dass Sie für Ihr Geld eine Menge Ausrüstung bekommen.
+
+Im Shop finden Sie jetzt eine neue Schaltfläche "Gebraucht kaufen" (Standardtaste: C), mit der Sie drei Optionen haben:
+&nbsp;1. normale Suche - Schneller (< Monat) mit ~65% Erfolgschance gegen eine geringe Gebühr
+&nbsp;2. erweiterte Suche - Gründlichere Suche in einem größeren Gebiet, bis zu drei Monaten, mit einer Erfolgschance von 80%, allerdings gegen eine höhere Gebühr
+&nbsp;3. kontinuierliche Suche - Für eine Premium-Gebühr sucht der Makler ein ganzes Jahr lang unermüdlich und gibt weltweit Anzeigen auf, mit einer Erfolgschance von 99 %.
+Bei Zahlung einer höheren Gebühr sucht der Makler über einen längeren Zeitraum und in einem größeren geografischen Gebiet, was die Erfolgschancen erhöht. Sie haben die Wahl.
+
+Wie immer beim Kauf gebrauchter Geräte ist es ratsam, sie vor der Inbetriebnahme gründlich zu schmieren und einen Blick auf die Mechanik zu werfen, um sicherzustellen, dass alles in gutem Zustand ist.
+]]></de>
+<fr><![CDATA[
+Bonne nouvelle ! Le concessionnaire local a annoncé qu'il mettrait à votre disposition un courtier en machines d'occasion, qui trouvera pour vous de bonnes affaires sur les équipements d'occasion. Le courtier sillonnera les environs à la recherche de bonnes affaires en fonction de votre demande et, avec un peu de chance, trouvera l'équipement de rêve sur lequel vous avez posé les yeux.
+
+La plupart des équipements peuvent être achetés d'occasion. Dans la plupart des cas, il présentera quelques bosses et contusions, et aura certainement un bon nombre d'heures sous le capot (s'il y a un capot), mais le courtier veillera à ce que vous obteniez beaucoup de matériel pour votre argent.
+
+Dans le magasin, vous trouverez désormais un nouveau bouton, "Acheter d'occasion" (touche par défaut : C), qui vous offre trois options :
+&nbsp;1. recherche régulière - plus rapide (< mois) avec ~65% de chances de succès pour une somme modique
+2. recherche étendue - recherche plus approfondie dans une zone plus large, jusqu'à trois mois, avec 80 % de chances de succès, mais pour un prix plus élevé.
+3. recherche continue - moyennant une prime, le courtier effectue des recherches sans relâche pendant une année entière, en publiant des annonces dans le monde entier, avec environ 99 % de chances de succès.
+En payant une redevance plus élevée, le courtier cherche pendant une période prolongée et dans une zone géographique plus large, ce qui augmente les chances de succès. À vous de choisir.
+
+Comme toujours lors de l'achat d'un équipement d'occasion, il est conseillé, avant de l'utiliser à bon escient, de procéder à un graissage complet et à un examen général de la mécanique afin de s'assurer que tout est en bon état de fonctionnement, l'équipement ayant été utilisé après tout.
+]]></fr>
+</description>
     <iconFilename>icon_BuyUsedEquipment.dds</iconFilename>
     <multiplayer supported="true"/>
-    <l10n filenamePrefix="language" />
+    <l10n filenamePrefix="language"/>
     <extraSourceFiles>
         <sourceFile filename="scripts/modLib/LogHelper.lua"/>
         <sourceFile filename="scripts/modLib/ModHelper.lua"/>
