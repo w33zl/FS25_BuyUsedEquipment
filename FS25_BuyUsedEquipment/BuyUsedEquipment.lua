@@ -1,9 +1,9 @@
 --[[
-SHORT DESCRIPTION OF WHAT YOUR MOD DOES GOES HERE
+Enables you to buy used equipment in the shop
 
-Author:     YOUR NAME/NICKNAME
+Author:     w33zl / WZL Modding (github.com/w33zl | facebook.com/w33zl)
 Version:    1.0.0
-Modified:   YYYY-MM-DD
+Modified:   2025-02-22
 
 Changelog:
 
@@ -85,23 +85,25 @@ local GENERATIONS = {
     },
 }
 
+local HOURS_PER_MONTH = 24 --HACK: change back to 24?
+
 BuyUsedEquipment.SEARCH_LEVELS = {
     {
         name = g_i18n:getText("searchLevel_normal"),
         duration = 1,
-        chance = 0.65,
+        chance = 0.65, --0.65, --HACK: change back?
         baseFee = 90,
     },
     {
         name = g_i18n:getText("searchLevel_extended"),
         duration = 3,
-        chance = 0.80,
+        chance = 0.80, --0.8, --HACK: change back?
         baseFee = 272,
     },
     {
         name = g_i18n:getText("searchLevel_continuous"),
         duration = 12,
-        chance = 0.95,
+        chance = 0.99, --1.0, --HACK: change back?
         baseFee = 1365,
     },
 }
@@ -144,7 +146,7 @@ function BuyUsedEquipment:createSearchAssignment(xmlFilename, searchLevel)
     local searchType = self.SEARCH_LEVELS[searchLevel or 1]
     local fee = self:calculateFee(g_storeManager:getItemByXMLFilename(xmlFilename).price, searchLevel)
     local isSuccess = math.random() < searchType.chance
-    local maxSearchTime = g_currentMission.environment.daysPerPeriod * searchType.duration * 24
+    local maxSearchTime = g_currentMission.environment.daysPerPeriod * searchType.duration * HOURS_PER_MONTH
     local searchDuration = math.random(1, maxSearchTime)
     local successTime = isSuccess and math.random(1, searchDuration) or searchDuration + 1
     Log:var("maxSearchTime", maxSearchTime)
@@ -153,6 +155,7 @@ function BuyUsedEquipment:createSearchAssignment(xmlFilename, searchLevel)
     Log:var("isSuccess", isSuccess)
     Log:var("searchLevel", searchType)
     Log:var("fee", fee)
+
     return {
         ttl = searchDuration,
         tts = successTime,
