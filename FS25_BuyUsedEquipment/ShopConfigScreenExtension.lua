@@ -115,14 +115,11 @@ ShopConfigScreen.setStoreItem = Utils.overwrittenFunction(ShopConfigScreen.setSt
                 Log:var("results", results)
         
                 if results > 0 then
-                    --HACK: this is wrong! fix!
-                    -- BuyUsedEquipment:createSearchAssignment(storeItem, results)
                     BuyUsedEquipment:requestUsedItem(storeItem, results)
 
                     local fee = BuyUsedEquipment:calculateFee(storeItem.price, results)
                     local feeString = g_i18n:formatMoney(g_i18n:getCurrency(fee))
 
-                    -- g_currentMission:addGameNotification("", g_i18n:getText("search_started_title"), g_i18n:getText("search_started_success_info"), nil, 5000)
                     InfoDialog.show(g_i18n:getText("search_started_confirmation"):format(feeString), nil, nil, DialogElement.TYPE_INFO, nil, nil, nil, true)
 
                     g_shopConfigScreen:playSample(GuiSoundPlayer.SOUND_SAMPLES.YES)
@@ -130,9 +127,6 @@ ShopConfigScreen.setStoreItem = Utils.overwrittenFunction(ShopConfigScreen.setSt
                     -- g_shopConfigScreen:playSample(GuiSoundPlayer.SOUND_SAMPLES.ERROR)
                 end
             end, g_i18n:getText("store_searchDialog_info"):gsub("\\n", "\n"), g_i18n:getText("store_searchDialog_title"), options)
-            -- --TODO: add sale item
-            -- BuyUsedEquipment:requestUsedItem(storeItem)
-            -- Log:info("Store item queued for search")
         end
 
         buyUsedButton.onClickCallback = self.onClickBuyUsed
