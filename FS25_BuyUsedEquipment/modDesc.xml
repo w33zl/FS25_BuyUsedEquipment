@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="no"?>
 <modDesc descVersion="95" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/NMC-TBone/xml-schema/main/modDesc.xsd">
     <author>w33zl</author>
-    <version>0.21.0.0-dev</version>
+    <version>1.0.0.0-dev</version>
     <title>
         <en>[DEV] Buy Used Equipment</en>
         <de>[DEV] Gebrauchte Ausrüstung Kaufen</de>
@@ -13,13 +13,17 @@ Great news! The local dealership have announced that they will provide a broker 
 
 Most equipment can be bought as used. In most cases it will have some dents and bruises, and for sure have a fair amount of hours under the hood (if there is any hood that is), but the broker will ensure you get a lot of equipment for your money.
 
-In the store you will now find a new button, "Buy Used" (default key: C), where you will have three options:
+In the store you will now find a new button, "Find Used" (default key: C), where you will have three options:
 &nbsp;1. Regular search - Quicker (< month) with ~65% chance of success for a modest fee
 &nbsp;2. Extended search - A more thorough search in wider area, up to three months, with a whopping 80% chance of success, although for a higher fee
 &nbsp;3. Continous search - For a premium fee, the broker will search relentlessly for a full year, putting out ads globally, with a ~99% chance of success
 When paying a higher fee the broker searches for an extended period of time, as well as in a broader geographical area, increasing the chance of success. The choice is yours.
 
+If/when the broker finds a match, you will receive a notification in the game, and the equipment will be available for purchase in the Sales tab in the equipment shop.
+
 As always when buying used equipment, before putting it to good use it is advised to give it a thorough greaseup and overall look at the mechanics to make sure everything is in good working order, the equipment has been used after all.
+
+Note: it is possible to buy multiple search assignments at the same time, this will boost your chances of success (for those items you realy want, and when you cannot wait for the one year search).
 ]]></en>
 <de><![CDATA[
 Tolle Neuigkeiten! Der örtliche Händler hat angekündigt, dass er einen Makler für gebrauchte Maschinen zur Verfügung stellen wird, der in Ihrem Namen günstige Angebote für gebrauchte Maschinen findet. Der Makler wird auf der Grundlage Ihrer Anfrage die nahe gelegenen Gebiete nach günstigen Angeboten durchforsten und hoffentlich die Traummaschine finden, auf die Sie schon lange ein Auge geworfen haben.
