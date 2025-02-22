@@ -90,19 +90,19 @@ BuyUsedEquipment.SEARCH_LEVELS = {
         name = g_i18n:getText("searchLevel_normal"),
         duration = 1,
         chance = 0.65,
-        baseFee = 1000,
+        baseFee = 90,
     },
     {
         name = g_i18n:getText("searchLevel_extended"),
         duration = 3,
         chance = 0.80,
-        baseFee = 3000,
+        baseFee = 272,
     },
     {
         name = g_i18n:getText("searchLevel_continuous"),
         duration = 12,
         chance = 0.95,
-        baseFee = 15000,
+        baseFee = 1365,
     },
 }
 
