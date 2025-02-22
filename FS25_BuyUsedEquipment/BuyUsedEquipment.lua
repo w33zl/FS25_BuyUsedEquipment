@@ -131,7 +131,7 @@ end
 function BuyUsedEquipment:calculateFee(price, searchLevel)
     local searchType = self.SEARCH_LEVELS[searchLevel or 1]
     local threshold = 2500 -- Low price threshold
-    local dynamicFee = 800
+    local dynamicFee = 728
     local factor = math.log10(price/threshold)
     local baseFee = searchType.baseFee
     local fee = baseFee + (math.max(factor, 0) * dynamicFee)
