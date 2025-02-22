@@ -34,7 +34,8 @@
     "**/*.png",
     "**/*.bak",
     "**/*.md",
-    "**/language_LANGCODE.xml"
+    "**/language_LANGCODE.xml",
+    "FS25_BuyUsedEquipment/UIHelper.lua"
   ],
   "autoBumpModDescVersion": true,
   "name": "FS25_BuyUsedEquipment"
