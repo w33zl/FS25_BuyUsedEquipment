@@ -144,8 +144,8 @@ end
 
 function BuyUsedEquipment:createSearchAssignment(xmlFilename, searchLevel)
     local searchType = self.SEARCH_LEVELS[searchLevel or 1]
-    local fee = self:calculateFee(g_storeManager:getItemByXMLFilename(xmlFilename).price, searchLevel)
-    local isSuccess = math.random() < searchType.chance
+    math.random() -- Dry run to improve randomness
+    math.random() -- Dry run to improve randomness
     local maxSearchTime = g_currentMission.environment.daysPerPeriod * searchType.duration * HOURS_PER_MONTH
     local searchDuration = math.random(1, maxSearchTime)
     local successTime = isSuccess and math.random(1, searchDuration) or searchDuration + 1
