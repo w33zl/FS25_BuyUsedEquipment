@@ -157,7 +157,7 @@ function BuyUsedEquipment:createSearchAssignment(xmlFilename, searchLevel)
         ttl = searchDuration,
         tts = successTime,
         filename = xmlFilename,
-        level = searchType,
+        level = searchLevel,
     }
 end
 
