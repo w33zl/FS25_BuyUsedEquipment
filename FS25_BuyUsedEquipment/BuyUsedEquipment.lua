@@ -144,17 +144,19 @@ end
 
 function BuyUsedEquipment:createSearchAssignment(xmlFilename, searchLevel)
     local searchType = self.SEARCH_LEVELS[searchLevel or 1]
+    -- local fee = self:calculateFee(g_storeManager:getItemByXMLFilename(xmlFilename).price, searchLevel)
     math.random() -- Dry run to improve randomness
     math.random() -- Dry run to improve randomness
+    local isSuccess = math.random() <= searchType.chance
     local maxSearchTime = g_currentMission.environment.daysPerPeriod * searchType.duration * HOURS_PER_MONTH
     local searchDuration = math.random(1, maxSearchTime)
     local successTime = isSuccess and math.random(1, searchDuration) or searchDuration + 1
-    Log:var("maxSearchTime", maxSearchTime)
-    Log:var("searchDuration", searchDuration)
-    Log:var("successTime", successTime)
-    Log:var("isSuccess", isSuccess)
-    Log:var("searchLevel", searchType)
-    Log:var("fee", fee)
+    -- Log:var("maxSearchTime", maxSearchTime)
+    -- Log:var("searchDuration", searchDuration)
+    -- Log:var("successTime", successTime)
+    -- Log:var("isSuccess", isSuccess)
+    -- Log:var("searchLevel", searchType)
+    -- Log:var("fee", fee)
 
     return {
         ttl = searchDuration,
@@ -165,63 +167,53 @@ function BuyUsedEquipment:createSearchAssignment(xmlFilename, searchLevel)
 end
 
 function BuyUsedEquipment:storeRequestedItem(farmId, xmlFilename, searchLevel)
-    Log:debug("storeRequestedItem")
-    Log:var("farmId", farmId)
-    Log:var("xmlFilename", xmlFilename)
-    Log:var("searchLevel", searchLevel)
+    -- Log:debug("storeRequestedItem")
+    -- Log:var("farmId", farmId)
+    -- Log:var("xmlFilename", xmlFilename)
+    -- Log:var("searchLevel", searchLevel)
     local storeItem = g_storeManager:getItemByXMLFilename(xmlFilename)
     local farm = g_farmManager:getFarmById(farmId)
 
     if farm == nil then
         Log:error("Could not find farm with #%d", farmId)
         return
-    -- elseif type(farm.addUsedVehicleSearch) ~= "function" then
-    --     Log:error("Farm does not have addUsedVehicleSearch function")
-    --     return
     end
 
     FarmExtension.addUsedVehicleSearch(farm, xmlFilename, searchLevel) --farm:addUsedVehicleSearch(xmlFilename)
 
     local fee = self:calculateFee(storeItem.price, searchLevel)
     g_currentMission:addMoney(-fee, farmId, MoneyType.SHOP_VEHICLE_BUY, true, true)
-    Log:var("Fee deducted", fee)
+    -- Log:var("Fee deducted", fee)
 end
 
 function BuyUsedEquipment:finalizeSearch(farmId, xmlFilename, success)
-    Log:debug("finalizeSearch")
+    -- Log:debug("finalizeSearch")
 
     if g_server == nil then
         Log:warning("finalizeSearch command is only allowed on the server")
         return
     end
 
-    Log:var("farmId", farmId)
-    Log:var("xmlFilename", xmlFilename)
+    -- Log:var("farmId", farmId)
+    -- Log:var("xmlFilename", xmlFilename)
 
     if success then
         local storeItem = g_storeManager:getItemByXMLFilename(xmlFilename)
-        local farm = g_farmManager:getFarmById(farmId)
+        -- local farm = g_farmManager:getFarmById(farmId)
 
         self:generateSaleItem(storeItem)
-        Log:debug("Sale item generated")
+        -- Log:debug("Sale item generated")
     end
 
-    -- Server.broadcastEvent(g_server, NotifySearchCompletedEvent.new(farmId, xmlFilename, success), true, false, {}, true, nil, true)
-
-    Log:var("NotifySearchCompletedEvent", NotifySearchCompletedEvent)
+    
+    -- Log:var("NotifySearchCompletedEvent", NotifySearchCompletedEvent)
 
     local evt = NotifySearchCompletedEvent.new(farmId, xmlFilename, success)
 
-    -- Log:var("evt", evt)
+    g_server:broadcastEvent(evt, true)
 
-    g_server:broadcastEvent(evt, true) -- event, sendLocal, ignoreConnection, ghostObject, force, connectionList, allowQueuing
+    -- Log:var("g_client", g_client)
 
-    Log:var("g_client", g_client)
-
-	-- g_currentMission:broadcastEventToFarm(evt, farmId, true, true, {}, true)
-
-
-    -- NotifySearchCompletedEvent.broadcast(farmId, xmlFilename, success)
     Log:debug("Clients notified")
 end
 
@@ -237,14 +229,6 @@ function BuyUsedEquipment:generateSaleItem(storeItem, preferredGeneration)
     -- local preferredGeneration = 4 --TODO: remove
     local generationIndex = preferredGeneration or math.random(self.MIN_GENERATION, self.MAX_GENERATION)
     local generation = GENERATIONS[generationIndex]
-    -- local minAge, maxAge = unpack(generation.age)
-    -- local minWear, maxWear = unpack(generation.wear)
-    -- local minDamage, maxDamage = unpack(generation.damage)
-    -- local minHours, maxHours = unpack(generation.hours)
-
-    -- local age = math.random((minAge + 0), maxAge or 100)
-
-
     local wear = getRandomValue(generation.wear)
     local damage = getRandomValue(generation.damage)
     local hours = getRandomValue(generation.hours)
@@ -254,20 +238,7 @@ function BuyUsedEquipment:generateSaleItem(storeItem, preferredGeneration)
     local priceFactor = (1 - discount)
     local boughtConfigurations = {}
 
-
-
-    -- local discountDelta = 5
-    -- local discountBase = 10
-    -- local discountPerGeneration = 15
-    -- local discountMedian = discountBase + ((generationIndex - 1) * discountPerGeneration)
-    -- local minDiscount = discountMedian - discountDelta
-    -- local maxDiscount = discountMedian + discountDelta
-    -- local minDiscount, maxDiscount = unpack(generation.discount)
-    -- local discount = math.random(minDiscount * 100, maxDiscount * 100)
-    -- local priceFactor = (100 - discount) / 100
-    -- local price = storeItem.price * 0.5
-
-    local price = storeItem.price * priceFactor --BUG: fix
+    local price = storeItem.price * priceFactor
 
     if self.USE_ALT_PRICE_STRATEGY then
         local defaultPrice = StoreItemUtil.getDefaultPrice(storeItem, boughtConfigurations)
@@ -275,27 +246,20 @@ function BuyUsedEquipment:generateSaleItem(storeItem, preferredGeneration)
         local repaintPrice = Wearable.calculateRepaintPrice(defaultPrice, wear)
         local altPrice = Vehicle.calculateSellPrice(storeItem, age, operatingTime, defaultPrice, repairPrice, repaintPrice)
         local deltaFactor = 1 + (math.random(-self.ALT_PRICE_DELTA, self.ALT_PRICE_DELTA) / 100)
-        Log:var("alt price", altPrice)
+        -- Log:var("alt price", altPrice)
 
         price = altPrice * deltaFactor
     end
 
-
-    Log:var("generation", generationIndex)
-    -- Log:var("discountMedian", discountMedian)
-    -- Log:var("minDiscount", minDiscount)
-    -- Log:var("maxDiscount", maxDiscount)
-    Log:var("discount", discount)
-    Log:var("priceFactor", priceFactor)
-    Log:var("original price", storeItem.price)
-    Log:var("discounted price", price)
-    
-    -- Log:var("minAge", minAge)
-    -- Log:var("maxAge", maxAge)
-    Log:var("age", age)
-    Log:var("wear", wear)
-    Log:var("damage", damage)
-    Log:var("hours", hours)
+    -- Log:var("generation", generationIndex)
+    -- Log:var("discount", discount)
+    -- Log:var("priceFactor", priceFactor)
+    -- Log:var("original price", storeItem.price)
+    -- Log:var("discounted price", price)
+    -- Log:var("age", age)
+    -- Log:var("wear", wear)
+    -- Log:var("damage", damage)
+    -- Log:var("hours", hours)
     
     g_currentMission.vehicleSaleSystem:addSale({
 		["timeLeft"] = math.random(self.MIN_SALE_DURATION, self.MAX_SALE_DURATION),
@@ -308,54 +272,6 @@ function BuyUsedEquipment:generateSaleItem(storeItem, preferredGeneration)
 		["wear"] = wear,
 		["operatingTime"] = operatingTime,
 	})
-   
+
     Log:debug("Item added")
 end
-
-
-
-
---[[
-
-ShopConfigScreen.updateButtons
-ShopConfigScreen.loadCurrentConfiguration
-ShopConfigScreen.onFinishedLoading
-ShopConfigScreen.updateDisplay
-ShopConfigScreen.setStoreItem
-ShopConfigScreen.setConfigPrice
-ShopConfigScreen.processStoreItemConfigurationSet
-ShopConfigScreen.updateConfigOptionsDisplay
-ShopConfigScreen.onOpen
-
-:getDescendantByName("button")
-:getDescendantByName("yesNoOption"):setVisible(false)
-
-]]
-
-Log:debug("BuyUsedEquipment loaded")
-
--- function ShopConfigScreen.onQuoteBuyUsed(self)
--- 	local _, _, hasChanges = self:getConfigurationCostsAndChanges(self.storeItem, self.vehicle, self.saleItem)
--- 	if hasChanges then
--- 		local enoughMoney = self.totalPrice <= 0 and true or g_currentMission:getMoney() >= self.totalPrice
--- 		local enoughSlots = g_currentMission.slotSystem:hasEnoughSlots(self.storeItem)
--- 		g_inputBinding:setShowMouseCursor(true)
--- 		if enoughMoney then
--- 			if enoughSlots then
--- 				self:playSample(GuiSoundPlayer.SOUND_SAMPLES.CLICK)
--- 				local text = string.format(g_i18n:getText(ShopConfigScreen.L10N_SYMBOL.CONFIRM_BUY), g_i18n:formatMoney(self.totalPrice, 0, true, true))
--- 				local callback = self.onYesNoBuy
--- 				YesNoDialog.show(callback, self, text, nil, nil, nil, nil, nil, nil, nil, true)
--- 			else
--- 				self:playSample(GuiSoundPlayer.SOUND_SAMPLES.ERROR)
--- 				InfoDialog.show(g_i18n:getText(ShopConfigScreen.L10N_SYMBOL.TOO_FEW_SLOTS), nil, nil, DialogElement.TYPE_WARNING, nil, nil, nil, true)
--- 			end
--- 		else
--- 			self:playSample(GuiSoundPlayer.SOUND_SAMPLES.ERROR)
--- 			InfoDialog.show(g_i18n:getText(ShopConfigScreen.L10N_SYMBOL.NOT_ENOUGH_MONEY_BUY), nil, nil, DialogElement.TYPE_WARNING, nil, nil, nil, true)
--- 			return
--- 		end
--- 	else
--- 		return
--- 	end
--- end

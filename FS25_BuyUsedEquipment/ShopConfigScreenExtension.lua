@@ -1,80 +1,10 @@
 
--- ShopConfigScreen.onOpen = Utils.overwrittenFunction(ShopConfigScreen.onOpen, function(self, superFunc, ...)
---     Log:debug("ShopConfigScreen.onOpen")
---     superFunc(self, ...)
---     self:getDescendantByName("button"):setVisible(false)
---     -- self:getDescendantByName("yesNoOption"):setVisible(false)
--- end)
-
-ShopConfigScreen.updateButtons = Utils.overwrittenFunction(ShopConfigScreen.updateButtons, function(self, superFunc, ...)
-    Log:debug("ShopConfigScreen.updateButtons")
-    superFunc(self, ...)
-
-    local buyButton = self.buyButton
-
-    Log:var("buyButton", buyButton)
-
-    -- if buyButton ~= nil then
-    --     Log:table("buyButton", buyButton, 2)
-
-    --     local parent = buyButton.parent
-
-    --     local buddy = buyButton:clone()
-    --     buddy.text = "Buddy"
-
-    --     Log:table("parent.elements", parent.elements, 1)
-    --     -- buyButton:setEnabled(false)
-
-    -- end
-
-    
-end)
-
-
--- Local values: _, _, , enoughMoney, enoughSlots, text, callback, target
 function ShopConfigScreen:onClickBuyUsed()
-    -- OptionDialog.show(function(results) 
-    --     Log:debug("OptionDialog.show")
-    --     Log:var("results", results)
-
-    --     if true then
-    --         BuyUsedEquipment:requestUsedItem(storeItem)
-    --     end
-    -- end, "Texten", "En title", { "Nej", "Ja", "Kanske"})
-	-- local _, _, hasChanges = self:getConfigurationCostsAndChanges(self.storeItem, self.vehicle, self.saleItem)
-	-- if hasChanges then
-	-- 	local v619_ = self.totalPrice <= 0 and true or g_currentMission:getMoney() >= self.totalPrice
-	-- 	local v620_ = g_currentMission.slotSystem:hasEnoughSlots(self.storeItem)
-	-- 	g_inputBinding:setShowMouseCursor(true)
-	-- 	if v619_ then
-	-- 		if v620_ then
-	-- 			self:playSample(GuiSoundPlayer.SOUND_SAMPLES.CLICK)
-	-- 			local v621_ = string.format(g_i18n:getText(ShopConfigScreen.L10N_SYMBOL.CONFIRM_BUY), g_i18n:formatMoney(self.totalPrice, 0, true, true))
-	-- 			local v622_ = self.onYesNoBuy
-	-- 			YesNoDialog.show(v622_, self, v621_, nil, nil, nil, nil, nil, nil, nil, true)
-	-- 		else
-	-- 			self:playSample(GuiSoundPlayer.SOUND_SAMPLES.ERROR)
-	-- 			InfoDialog.show(g_i18n:getText(ShopConfigScreen.L10N_SYMBOL.TOO_FEW_SLOTS), nil, nil, DialogElement.TYPE_WARNING, nil, nil, nil, true)
-	-- 		end
-	-- 	else
-	-- 		self:playSample(GuiSoundPlayer.SOUND_SAMPLES.ERROR)
-	-- 		InfoDialog.show(g_i18n:getText(ShopConfigScreen.L10N_SYMBOL.NOT_ENOUGH_MONEY_BUY), nil, nil, DialogElement.TYPE_WARNING, nil, nil, nil, true)
-	-- 		return
-	-- 	end
-	-- else
-	-- 	return
-	-- end
 end
 
-
-
 ShopConfigScreen.setStoreItem = Utils.overwrittenFunction(ShopConfigScreen.setStoreItem, function(self, superFunc, storeItem, ...)
-    Log:debug("ShopConfigScreen.setStoreItem NEW")
+    -- Log:debug("ShopConfigScreen.setStoreItem NEW")
     superFunc(self, storeItem, ...)
-
-    -- local args = {...}
-
-    -- visualizeTable("args", args, 2)
 
     local buyButton = self.buyButton
     local buyUsedButton = self.buyUsedButton
@@ -83,7 +13,7 @@ ShopConfigScreen.setStoreItem = Utils.overwrittenFunction(ShopConfigScreen.setSt
         local parent = buyButton.parent
         buyUsedButton = buyButton:clone(parent)
         buyUsedButton.name = "buyUsedButton"
-        buyUsedButton.text = "Buddy"
+        buyUsedButton.text = "Find Used"
         buyUsedButton.inputActionName = "MENU_EXTRA_2"
         self.buyUsedButton = buyUsedButton
     end
@@ -111,8 +41,8 @@ ShopConfigScreen.setStoreItem = Utils.overwrittenFunction(ShopConfigScreen.setSt
             g_shopConfigScreen:playSample(GuiSoundPlayer.SOUND_SAMPLES.CLICK)
 
             OptionDialog.show(function(results) 
-                Log:debug("OptionDialog.show")
-                Log:var("results", results)
+                -- Log:debug("OptionDialog.show")
+                -- Log:var("results", results)
         
                 if results > 0 then
                     BuyUsedEquipment:requestUsedItem(storeItem, results)
@@ -132,8 +62,6 @@ ShopConfigScreen.setStoreItem = Utils.overwrittenFunction(ShopConfigScreen.setSt
         buyUsedButton.onClickCallback = self.onClickBuyUsed
     end
 
-
-
     if buyUsedButton ~= nil then
         local function qualifyForUsed()
             local isQualified = storeItem.species == StoreSpecies.VEHICLE
@@ -144,21 +72,7 @@ ShopConfigScreen.setStoreItem = Utils.overwrittenFunction(ShopConfigScreen.setSt
         end
         buyUsedButton:setDisabled(not qualifyForUsed())
     end
-    -- :clone()
-    -- visualizeTable("ShopConfigScreen", self, 1)
 end)
 
 
-ShopConfigScreen.updateData = Utils.overwrittenFunction(ShopConfigScreen.updateData, function(self, superFunc, storeItem, vehicle, saleItem)
-    Log:debug("ShopConfigScreen.updateData")
-    superFunc(self, storeItem, vehicle, saleItem)
-
-    -- if self.isBuyingUsed then
-    --     self.buyButton:setVisible(false)
-    --     self.buyUsedButton:setVisible(true)
-    -- else
-    --     self.buyButton:setVisible(true)
-    --     self.buyUsedButton:setVisible(false)
-    -- end
-end)
 
