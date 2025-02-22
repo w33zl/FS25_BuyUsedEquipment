@@ -2,7 +2,7 @@
 <l10n>
     <translationContributors>w33zl</translationContributors>
     <texts>
-        <text name="button_buyUsed" text="Buy Used" />
+        <text name="button_buyUsed" text="Find Used" />
         <text name="store_searchDialog_title" text="Search for Used Equipment" />
         <text name="store_searchDialog_info" text="Create a search assignment for our broker. You can choose one of three options:\n 1. Normal search (&lt;1 month, ~65% chance)\n 2. Extended search (&lt;3 months, ~80% chance)\n 3. Continous search (a year, ~98% chance)\n\nA longer assignment increases the search area and the chance of success, but at a higher cost.\n" />
         <text name="searchLevel_normal" text="Normal search [fee %s]" />
