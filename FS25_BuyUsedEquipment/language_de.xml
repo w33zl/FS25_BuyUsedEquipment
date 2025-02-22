@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n>
+	<translationContributors>Translated by FSBuild (https://github.com/FSBuild) and DeepL</translationContributors>
+	<texts>
+		<text name="button_buyUsed" text="Gebraucht finden"/>
+		<text name="store_searchDialog_title" text="Suche nach gebrauchten Geräten"/>
+		<text name="store_searchDialog_info" text="Erstellen Sie einen Suchauftrag für unseren Makler. Sie können eine von drei Optionen wählen:\n 1. Normale Suche (&lt;1 Monat, ~65% Chance)\n 2. Erweiterte Suche (&lt;3 Monate, ~80% Chance)\n 3. Kontinuierliche Suche (ein Jahr, ~98% Chance)\n\nEin längerer Auftrag vergrößert den Suchbereich und die Erfolgschancen, ist aber mit höheren Kosten verbunden.\n"/>
+		<text name="searchLevel_normal" text="Normale Suche [Gebühr %s]"/>
+		<text name="searchLevel_extended" text="Erweiterte Suche [Gebühr %s]"/>
+		<text name="searchLevel_continuous" text="Kontinuierliche Suche [Gebühr %s]"/>
+		<text name="search_completed_success_title" text="Erfolgreiche Suche"/>
+		<text name="search_completed_success_info" text="Glückwunsch! Der Makler hat die passende Ausrüstung gefunden. Überprüfen Sie die Registerkarte &quot;Verkauf&quot; im Laden."/>
+		<text name="search_completed_failed_title" text="Suche fehlgeschlagen"/>
+		<text name="search_completed_failed_info" text="Leider konnte der Makler in diesem Zeitraum und Suchgebiet keine passenden Geräte finden."/>
+		<text name="search_started_title" text="Suche gestartet"/>
+		<text name="search_started_info" text="Halten Sie Ausschau nach einer Benachrichtigung durch den Makler..."/>
+		<text name="search_started_confirmation" text="Der Gebrauchtmaschinenmakler hat Ihren Auftrag erhalten. Eine Vorabgebühr in Höhe von % wurde von Ihrem Konto abgebucht. Halten Sie Ausschau nach einer Benachrichtigung des Maklers, wenn der Suchauftrag beendet ist."/>
+</texts></l10n>

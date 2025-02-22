@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n>
+	<translationContributors>Translated by FSBuild (https://github.com/FSBuild) and DeepL</translationContributors>
+	<texts>
+			<text name="button_buyUsed" text="Trouver un véhicule d'occasion"/>
+		<text name="store_searchDialog_title" text="Recherche de matériel d'occasion"/>
+		<text name="store_searchDialog_info" text="Créez une mission de recherche pour notre courtier. Vous pouvez choisir l'une des trois options suivantes : 1. Recherche normale (&lt;1 mois, ~65% de chances)\n 2. Recherche étendue (&lt;3 mois, ~80% de chances)\n 3. Recherche continue (un an, ~98% de chances)\n- Une mission plus longue augmente la zone de recherche et les chances de succès, mais à un coût plus élevé."/>
+		<text name="searchLevel_normal" text="Recherche normale [frais %s]"/>
+		<text name="searchLevel_extended" text="Recherche étendue [honoraires %s]"/>
+		<text name="searchLevel_continuous" text="Recherche continue [frais %s]"/>
+		<text name="search_completed_success_title" text="Recherche fructueuse"/>
+		<text name="search_completed_success_info" text="Félicitations ! Le courtier a trouvé l'équipement correspondant, vérifiez l'onglet des ventes dans le magasin."/>
+		<text name="search_completed_failed_title" text="Échec de la recherche"/>
+		<text name="search_completed_failed_info" text="Malheureusement, le courtier n'a pu trouver aucun équipement correspondant dans ce délai et dans cette zone de recherche."/>
+		<text name="search_started_title" text="Recherche entamée"/>
+		<text name="search_started_info" text="Gardez l'œil ouvert pour une notification de la part du courtier..."/>
+		<text name="search_started_confirmation" text="Le courtier en matériel d'occasion s'est chargé de votre mission. Une commission initiale de %s a été déduite de votre compte. Gardez l'œil ouvert pour recevoir une notification du courtier à la fin de la mission de recherche."/>
+</texts></l10n>
