@@ -111,19 +111,6 @@ BuyUsedEquipment.SEARCH_LEVELS = {
 BuyUsedEquipment.MAX_GENERATION = math.min(BuyUsedEquipment.MAX_GENERATION, #GENERATIONS)
 
 
-
--- Event that is executed when your mod is loading (after the map has been loaded and before the game starts)
-function BuyUsedEquipment:loadMap(filename)
-end
-
--- Event that is continuously, USE WITH CAUTION! Any demanding code here (even just a simple "print()" command) will cause poor performance, stuttering and FPS drops
-function BuyUsedEquipment:update(dt)
-end
-
--- Event that is executed when the player chooses to start the mission (after the map has been loaded and before the game starts)
-function BuyUsedEquipment:startMission()
-end
-
 function BuyUsedEquipment:requestUsedItem(storeItem, searchLevel)
     local xmlFilename = storeItem.xmlFilename
     Log:debug("requestUsedItem: '%s' '%s'", storeItem.name, xmlFilename)
@@ -144,19 +131,14 @@ end
 
 function BuyUsedEquipment:createSearchAssignment(xmlFilename, searchLevel)
     local searchType = self.SEARCH_LEVELS[searchLevel or 1]
-    -- local fee = self:calculateFee(g_storeManager:getItemByXMLFilename(xmlFilename).price, searchLevel)
+
     math.random() -- Dry run to improve randomness
     math.random() -- Dry run to improve randomness
+
     local isSuccess = math.random() <= searchType.chance
     local maxSearchTime = g_currentMission.environment.daysPerPeriod * searchType.duration * HOURS_PER_MONTH
     local searchDuration = math.random(1, maxSearchTime)
     local successTime = isSuccess and math.random(1, searchDuration) or searchDuration + 1
-    -- Log:var("maxSearchTime", maxSearchTime)
-    -- Log:var("searchDuration", searchDuration)
-    -- Log:var("successTime", successTime)
-    -- Log:var("isSuccess", isSuccess)
-    -- Log:var("searchLevel", searchType)
-    -- Log:var("fee", fee)
 
     return {
         ttl = searchDuration,
@@ -167,10 +149,6 @@ function BuyUsedEquipment:createSearchAssignment(xmlFilename, searchLevel)
 end
 
 function BuyUsedEquipment:storeRequestedItem(farmId, xmlFilename, searchLevel)
-    -- Log:debug("storeRequestedItem")
-    -- Log:var("farmId", farmId)
-    -- Log:var("xmlFilename", xmlFilename)
-    -- Log:var("searchLevel", searchLevel)
     local storeItem = g_storeManager:getItemByXMLFilename(xmlFilename)
     local farm = g_farmManager:getFarmById(farmId)
 
@@ -187,15 +165,10 @@ function BuyUsedEquipment:storeRequestedItem(farmId, xmlFilename, searchLevel)
 end
 
 function BuyUsedEquipment:finalizeSearch(farmId, xmlFilename, success)
-    -- Log:debug("finalizeSearch")
-
     if g_server == nil then
         Log:warning("finalizeSearch command is only allowed on the server")
         return
     end
-
-    -- Log:var("farmId", farmId)
-    -- Log:var("xmlFilename", xmlFilename)
 
     if success then
         local storeItem = g_storeManager:getItemByXMLFilename(xmlFilename)
@@ -205,14 +178,9 @@ function BuyUsedEquipment:finalizeSearch(farmId, xmlFilename, success)
         -- Log:debug("Sale item generated")
     end
 
-    
-    -- Log:var("NotifySearchCompletedEvent", NotifySearchCompletedEvent)
-
     local evt = NotifySearchCompletedEvent.new(farmId, xmlFilename, success)
 
     g_server:broadcastEvent(evt, true)
-
-    -- Log:var("g_client", g_client)
 
     Log:debug("Clients notified")
 end
@@ -251,16 +219,6 @@ function BuyUsedEquipment:generateSaleItem(storeItem, preferredGeneration)
         price = altPrice * deltaFactor
     end
 
-    -- Log:var("generation", generationIndex)
-    -- Log:var("discount", discount)
-    -- Log:var("priceFactor", priceFactor)
-    -- Log:var("original price", storeItem.price)
-    -- Log:var("discounted price", price)
-    -- Log:var("age", age)
-    -- Log:var("wear", wear)
-    -- Log:var("damage", damage)
-    -- Log:var("hours", hours)
-    
     g_currentMission.vehicleSaleSystem:addSale({
 		["timeLeft"] = math.random(self.MIN_SALE_DURATION, self.MAX_SALE_DURATION),
 		["isGenerated"] = false,
@@ -273,5 +231,5 @@ function BuyUsedEquipment:generateSaleItem(storeItem, preferredGeneration)
 		["operatingTime"] = operatingTime,
 	})
 
-    Log:debug("Item added")
+    -- Log:debug("Item added")
 end

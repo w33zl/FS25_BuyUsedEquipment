@@ -17,7 +17,6 @@ function NotifySearchCompletedEvent.new(farmId, xmlFilename, success)
 	return newEvent
 end
 function NotifySearchCompletedEvent.readStream(self, streamId, connection)
-	-- Log:debug("NotifySearchCompletedEvent.readStream")
 	self.farmId = streamReadInt32(streamId)
 	self.xmlFilename = streamReadString(streamId)
 	self.success = streamReadBool(streamId)
@@ -25,7 +24,6 @@ function NotifySearchCompletedEvent.readStream(self, streamId, connection)
 	self:run(connection)
 end
 function NotifySearchCompletedEvent.writeStream(self, streamId, connection)
-	-- Log:debug("NotifySearchCompletedEvent.writeStream")
 	streamWriteInt32(streamId, self.farmId)
 	streamWriteString(streamId, self.xmlFilename)
 	streamWriteBool(streamId, self.success)

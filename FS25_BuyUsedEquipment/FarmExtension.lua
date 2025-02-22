@@ -3,12 +3,6 @@ FarmExtension = {}
 function FarmExtension.new(isServer, superFunc, isClient, spectator, customMt, ...)
     local farm = superFunc(isServer, isClient, spectator, customMt, ...)
     
-    -- Log:var("superFunc", superFunc)
-    -- Log:var("isServer", isServer)
-    -- Log:var("isClient", isClient)
-    -- Log:var("spectator", spectator)
-    -- Log:var("customMt", customMt)
-
     farm.buyUsedVehicles = {}
 	if g_server ~= nil then
 		g_messageCenter:subscribe(MessageType.HOUR_CHANGED, FarmExtension.onHourChanged, farm)
@@ -60,8 +54,6 @@ function FarmExtension:onHourChanged()
 end
 
 function FarmExtension:saveToXMLFile(xmlFile, key)
-    -- Log:debug("FarmExtension:saveToXMLFile")
-
     if self.buyUsedVehicles == nil then self.buyUsedVehicles = {} end
 
     xmlFile:setSortedTable(key .. ".buyUsedEquipment.assignment", self.buyUsedVehicles, function (index, assignment)
@@ -103,13 +95,10 @@ end
 Farm.loadFromXMLFile = Utils.overwrittenFunction(Farm.loadFromXMLFile, FarmExtension.loadFromXMLFile)
 
 function FarmExtension.addUsedVehicleSearch(farm, xmlFilename, searchLevel)
-    -- Log:debug("FarmExtension:addUsedVehicleSearch")
 
     farm.buyUsedVehicles = farm.buyUsedVehicles or {}
     local searchAssignment = BuyUsedEquipment:createSearchAssignment(xmlFilename, searchLevel)
 
     table.insert(farm.buyUsedVehicles, searchAssignment)
-
-    -- Log:table("self.buyUsedVehicles", farm.buyUsedVehicles, 2)
 
 end

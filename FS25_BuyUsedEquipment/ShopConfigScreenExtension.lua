@@ -3,7 +3,6 @@ function ShopConfigScreen:onClickBuyUsed()
 end
 
 ShopConfigScreen.setStoreItem = Utils.overwrittenFunction(ShopConfigScreen.setStoreItem, function(self, superFunc, storeItem, ...)
-    -- Log:debug("ShopConfigScreen.setStoreItem NEW")
     superFunc(self, storeItem, ...)
 
     local buyButton = self.buyButton
@@ -41,8 +40,6 @@ ShopConfigScreen.setStoreItem = Utils.overwrittenFunction(ShopConfigScreen.setSt
             g_shopConfigScreen:playSample(GuiSoundPlayer.SOUND_SAMPLES.CLICK)
 
             OptionDialog.show(function(results) 
-                -- Log:debug("OptionDialog.show")
-                -- Log:var("results", results)
         
                 if results > 0 then
                     BuyUsedEquipment:requestUsedItem(storeItem, results)
