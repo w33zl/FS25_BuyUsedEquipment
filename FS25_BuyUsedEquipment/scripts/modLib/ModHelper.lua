@@ -458,7 +458,10 @@ function Mod:getCurrentPlayer()
 end
 
 
-
+function Mod:getCurrentFarm()
+    local farmId = g_localPlayer.farmId or FarmManager.SPECTATOR_FARM_ID
+    return g_farmManager:getFarmById(farmId)
+end
 
 function Mod:enableDebugMode()
     deprecated("enableDebugMode()", "Log class")
@@ -614,6 +617,16 @@ function Mod:getIsModActive(modName, envName)
 
     return modNameCheck and envCheck
 
+end
+
+function Mod:featureToggle(feature, delegate)
+    if feature == true then
+        if delegate ~= nil and type(delegate) == "function" then
+            return delegate(self)
+        else
+            Log:error("Feature toggle delegate is not a function")
+        end
+    end
 end
 
 -- function Mod:getIsSeasonsActive()
