@@ -14,5 +14,5 @@
 		<text name="search_completed_failed_info" text="Leider konnte der Makler in diesem Zeitraum und Suchgebiet keine passenden Geräte finden."/>
 		<text name="search_started_title" text="Suche gestartet"/>
 		<text name="search_started_info" text="Halten Sie Ausschau nach einer Benachrichtigung durch den Makler..."/>
-		<text name="search_started_confirmation" text="Der Gebrauchtmaschinenmakler hat Ihren Auftrag erhalten. Eine Vorabgebühr in Höhe von % wurde von Ihrem Konto abgebucht. Halten Sie Ausschau nach einer Benachrichtigung des Maklers, wenn der Suchauftrag beendet ist."/>
+		<text name="search_started_confirmation" text="Der Gebrauchtmaschinenmakler hat Ihren Auftrag erhalten. Eine Vorabgebühr in Höhe von %s wurde von Ihrem Konto abgebucht. Halten Sie Ausschau nach einer Benachrichtigung des Maklers, wenn der Suchauftrag beendet ist."/>
 </texts></l10n>
