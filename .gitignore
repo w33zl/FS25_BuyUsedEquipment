@@ -1,0 +1,11 @@
+TODO.md
+graphics/*
+WiKi/*
+.vscode/*
+docs/*
+FS25_BuyUsedEquipment/.build/*
+FS25_BuyUsedEquipment/scripts/modLib.bak/*
+.env
+*.bat
+*.bak
+FS25_BuyUsedEquipment/modDesc.build

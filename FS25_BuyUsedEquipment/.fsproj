@@ -30,6 +30,8 @@
     "**/modLib/MultistateKeyHandler.lua",
     "**/modLib/PlaceableExtension.lua",
     "**/modLib/StringWriter.lua",
+    "**/modLib/UIHelper.lua",
+    "**/modLib/VehicleWorkshop.lua",
     "**/*.pdn",
     "**/*.png",
     "**/*.bak",
