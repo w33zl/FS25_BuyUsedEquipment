@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="no"?>
-<modDesc descVersion="95" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/NMC-TBone/xml-schema/main/modDesc.xsd">
+<modDesc descVersion="97" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/NMC-TBone/xml-schema/main/modDesc.xsd">
     <author>w33zl</author>
-    <version>1.0.0.0-dev</version>
+    <version>1.0.1.0-dev</version>
     <title>
         <en>[DEV] Buy Used Equipment</en>
         <de>[DEV] Gebrauchte Ausrüstung Kaufen</de>
@@ -24,6 +24,10 @@ If/when the broker finds a match, you will receive a notification in the game, a
 As always when buying used equipment, before putting it to good use it is advised to give it a thorough greaseup and overall look at the mechanics to make sure everything is in good working order, the equipment has been used after all.
 
 Note: it is possible to buy multiple search assignments at the same time, this will boost your chances of success (for those items you realy want, and when you cannot wait for the one year search).
+
+CHANGELOG:
+v1.0.1:
+- HOTFIX: Fix Lua error caused by typo in German translation
 ]]></en>
 <de><![CDATA[
 Tolle Neuigkeiten! Der örtliche Händler hat angekündigt, dass er einen Makler für gebrauchte Maschinen zur Verfügung stellen wird, der in Ihrem Namen günstige Angebote für gebrauchte Maschinen findet. Der Makler wird auf der Grundlage Ihrer Anfrage die nahe gelegenen Gebiete nach günstigen Angeboten durchforsten und hoffentlich die Traummaschine finden, auf die Sie schon lange ein Auge geworfen haben.
@@ -41,11 +45,15 @@ Wenn der Makler eine Übereinstimmung findet, erhalten Sie eine Benachrichtigung
 Wie immer beim Kauf gebrauchter Ausrüstungen ist es ratsam, sie vor dem Einsatz gründlich zu schmieren und einen Blick auf die Mechanik zu werfen, um sicherzugehen, dass alles in Ordnung ist - schließlich wurde die Ausrüstung benutzt.
 
 Hinweis: Es ist möglich, mehrere Suchaufträge gleichzeitig zu kaufen, was Ihre Erfolgschancen erhöht (für die Gegenstände, die Sie wirklich wollen, und wenn Sie nicht auf die einjährige Suche warten können).
+
+CHANGELOG:
+v1.0.1:
+- HOTFIX: Behebung eines Lua-Fehlers, der durch einen Tippfehler in der deutschen Übersetzung verursacht wurde
 ]]></de>
 <fr><![CDATA[
 Bonne nouvelle ! Le concessionnaire local a annoncé qu'il mettrait à votre disposition un courtier en machines d'occasion, qui trouvera pour vous de bonnes affaires sur les équipements d'occasion. Le courtier sillonnera les environs à la recherche de bonnes affaires en fonction de votre demande et, avec un peu de chance, trouvera l'équipement de rêve sur lequel vous avez posé les yeux.
 
-La plupart des équipements peuvent être achetés d'occasion. Dans la plupart des cas, il présentera quelques bosses et ecchymoses, et aura certainement un bon nombre d'heures sous le capot (s'il y a un capot), mais le courtier veillera à ce que vous obteniez beaucoup de matériel pour votre argent.
+La plupart des équipements peuvent être achetés d'occasion. Dans la plupart des cas, il présentera quelques bosses et contusions, et aura certainement un bon nombre d'heures sous le capot (s'il y a un capot), mais le courtier veillera à ce que vous obteniez beaucoup de matériel pour votre argent.
 
 Dans le magasin, vous trouverez désormais un nouveau bouton, "Trouver une occasion" (touche par défaut : C), où vous aurez trois options :
 &nbsp;1. recherche régulière - plus rapide (< mois) avec ~65% de chances de succès pour une somme modique
@@ -58,6 +66,10 @@ Si/quand le courtier trouve une correspondance, vous recevrez une notification d
 Comme toujours lors de l'achat d'un équipement d'occasion, il est conseillé, avant de le mettre en service, de le graisser soigneusement et d'en examiner les mécanismes afin de s'assurer que tout est en bon état de marche, l'équipement ayant été utilisé après tout.
 
 Remarque : il est possible d'acheter plusieurs missions de recherche en même temps, ce qui augmentera vos chances de succès (pour les articles que vous voulez vraiment, et lorsque vous ne pouvez pas attendre la recherche d'un an).
+
+CHANGELOG :
+v1.0.1 :
+- HOTFIX : Correction d'une erreur Lua causée par une faute de frappe dans la traduction allemande
 ]]></fr>
 </description>
     <iconFilename>icon_BuyUsedEquipment.dds</iconFilename>
