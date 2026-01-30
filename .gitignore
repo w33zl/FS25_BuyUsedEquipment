@@ -3,9 +3,9 @@ graphics/*
 WiKi/*
 .vscode/*
 docs/*
-FS25_BuyUsedEquipment/.build/*
-FS25_BuyUsedEquipment/scripts/modLib.bak/*
+*/.build/*
 .env
 *.bat
 *.bak
-FS25_BuyUsedEquipment/modDesc.build
+modDesc.build
+debug.log
