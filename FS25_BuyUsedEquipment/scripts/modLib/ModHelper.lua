@@ -479,6 +479,10 @@ function Mod:loadSound(name, fileName)
     return newSound
 end
 
+function Mod:initSettings(defaultSettingsFileName)
+    
+end
+
 function Mod:new()
     local newMod = {}
 

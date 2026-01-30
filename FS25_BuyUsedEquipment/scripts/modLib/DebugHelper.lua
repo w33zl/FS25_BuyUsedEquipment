@@ -273,3 +273,5 @@ function DebugHelper:measureStart(formatString)
         end,
     }
 end
+
+_G.g_modDebugMode = true

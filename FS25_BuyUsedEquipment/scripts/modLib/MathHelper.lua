@@ -1,13 +1,15 @@
 --[[
 
-MathHelper (Weezls Mod Lib for FS22) - Quality of life math utility functions for your mod
+MathHelper (Weezls Mod Lib for FS25) - Quality of life math utility functions for your mod
 
 Author:     w33zl (github.com/w33zl)
-Version:    1.0
-Modified:   2023-07-17
+Version:    1.1
+Modified:   2026-01-15
 
 Changelog:
 v1.0        Initial public release
+v1.1        Added log2 function
+
 
 License:    CC BY-NC-SA 4.0
 This license allows reusers to distribute, remix, adapt, and build upon the material in any medium or 
@@ -16,13 +18,6 @@ If you remix, adapt, or build upon the material, you must license the modified m
 
 ]]
 
-
----Print formatted strings (like printf in other languages), basically a wrapper for 'print(string.format(...))', useful for debugging
----@param stringFormat string Format string
----@param ... any Values to be passed on to string.format
-local function printf(stringFormat, ...)
-    print(string.format(stringFormat, ...))
-end
 
 
 --- Rounds a number to a specified number of decimal places
@@ -55,23 +50,27 @@ local function ceilEx(x, decimals)
 end
 
 
--- Create our utility class
-MathHelper = MathHelper or {}
-MathHelper.round = MathHelper.round or round
-MathHelper.floor = MathHelper.floor or floorEx
-MathHelper.ceil = MathHelper.ceil or ceilEx
 
+--- Calculates the base-2 logarithm of a number
+--- @param x (number) The number to calculate the logarithm for
+--- @return (number) "The base-2 logarithm of the number"
+local function log2(x)
+    return math.log(x) / math.log(2)
+end
 
 -- Inject our QoL functions into the core lua math lib
 math = math or {}
 math.ceilEx = math.ceilEx or ceilEx
 math.floorEx = math.floorEx or floorEx
 math.round = math.round or round
+math.roundEx = math.roundEx or round
+math.log2 = math.log2 or log2
 
--- Inject our QoL functions into the FS MathUtil lib
+-- Inject our QoL functions into the FS base game MathUtil lib
 if MathUtil ~= nil then
     MathUtil.ceilEx = MathUtil.ceilEx or ceilEx
     MathUtil.floorEx = MathUtil.floorEx or floorEx
     MathUtil.round = MathUtil.round or round
     MathUtil.roundEx = MathUtil.roundEx or round
+    MathUtil.log2 = MathUtil.log2 or log2
 end
