@@ -1,0 +1,3 @@
+Updated to remove error so that it does not conflict with other things that run on an update loop at top of each hour, such as the GEA feeding robot. 
+
+Changed notifications to be persistent and include machine name and time notification popped, and also set time scale to 0 while notification is present. 

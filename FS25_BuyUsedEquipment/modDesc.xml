@@ -1,11 +1,11 @@
 <?xml version="1.0" standalone="no"?>
 <modDesc descVersion="97" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/NMC-TBone/xml-schema/main/modDesc.xsd">
     <author>w33zl</author>
-    <version>1.0.1.0-dev</version>
+    <version>1.0.3.0</version>
     <title>
-        <en>[DEV] Buy Used Equipment</en>
-        <de>[DEV] Gebrauchte Ausrüstung Kaufen</de>
-        <fr>[DEV] Acheter Du Matériel D'occasion</fr>
+        <en>Buy Used Equipment</en>
+        <de>Gebrauchte Ausrüstung Kaufen</de>
+        <fr>Acheter Du Matériel D'occasion</fr>
     </title>
     <description>
 <en><![CDATA[

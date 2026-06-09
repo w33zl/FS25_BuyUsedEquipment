@@ -172,11 +172,28 @@ function BuyUsedEquipment:finalizeSearch(farmId, xmlFilename, success)
 
     if success then
         local storeItem = g_storeManager:getItemByXMLFilename(xmlFilename)
-        -- local farm = g_farmManager:getFarmById(farmId)
 
-        self:generateSaleItem(storeItem)
-        -- Log:debug("Sale item generated")
+        if storeItem ~= nil then
+            self:generateSaleItem(storeItem)
+        else
+            Log:warning(
+                "BuyUsedEquipment: Could not find store item for xml '%s'",
+                tostring(xmlFilename)
+            )
+            success = false
+        end
     end
+
+    local evt = NotifySearchCompletedEvent.new(
+        farmId,
+        xmlFilename,
+        success
+    )
+
+    g_server:broadcastEvent(evt, true)
+
+    Log:debug("Clients notified")
+end
 
     local evt = NotifySearchCompletedEvent.new(farmId, xmlFilename, success)
 
